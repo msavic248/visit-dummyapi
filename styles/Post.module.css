@@ -1,0 +1,30 @@
+.card {
+    padding: 1rem;
+    background-color: ghostwhite;
+    border-radius: 15px;
+    max-width: 500px;
+}
+
+.card__flex {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.card__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.card p, .card h4, .card small {
+    color: black;
+}
+
+.profile {
+    border-radius: 32px;
+}
+
+.postImage {
+    border-radius: 8px;
+    object-fit: cover;
+}
