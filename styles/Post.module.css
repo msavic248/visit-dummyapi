@@ -3,6 +3,9 @@
     background-color: ghostwhite;
     border-radius: 15px;
     max-width: 500px;
+    background-color: rgb(var(--callout-rgb));
+    border: 1px solid rgb(var(--callout-border-rgb));
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 }
 
 .card__flex {
@@ -11,20 +14,51 @@
     margin-bottom: 1rem;
 }
 
-.card__grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-.card p, .card h4, .card small {
-    color: black;
-}
-
-.profile {
+.card__flex > img {
+    margin-right: 1rem;
     border-radius: 32px;
 }
 
-.postImage {
+.card__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.15rem;
+}
+
+.card__grid > img {
     border-radius: 8px;
     object-fit: cover;
+    width: 100%;
+    max-width: 200px;
+}
+
+.card p, .card h4, .card small {
+    color: rgb(var(--foreground-rgb));
+}
+
+.description {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0.25rem 0.5rem 0.25rem 0.5rem;
+}
+
+.tags {
+    /* align-self: center; */
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.tag {
+    padding: 4px 6px;
+    background-color: rgb(var(--card-rgb));
+    border-radius: 5px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+}
+
+.tag:hover {
+    opacity: 0.8;
 }

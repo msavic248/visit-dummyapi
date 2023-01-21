@@ -1,5 +1,6 @@
 import Image from "next/image";
 import styles from '@/styles/Post.module.css'
+import { formatDate, formatTitle } from '@/js/utils.js';
 
 export default function Post({post}: any) {
     const {id, text, image, publishDate, likes, tags, owner} = post;
@@ -8,34 +9,32 @@ export default function Post({post}: any) {
         <div className={styles.card}>
             <div className={styles.card__flex}>
                 <Image
-                    className={styles.profile}
                     src={owner.picture}
-                    alt={`${owner.title} ${owner.firstName} ${owner.lastName}`}
+                    alt={`${formatTitle(owner.title)} ${owner.firstName} ${owner.lastName}`}
                     width={50}
                     height={50}
                 />
                 <div>
-                    <p>{`${owner.title} ${owner.firstName} ${owner.lastName}`}</p>
-                    <br/>
-                    <small>{publishDate}</small>
+                    <p>{`${formatTitle(owner.title)} ${owner.firstName} ${owner.lastName}`}</p>
+                    <small>{formatDate(publishDate)}</small>
                 </div>
             </div>
             <div className={styles.card__grid}>
                 <Image
-                    className={styles.postImage}
                     src={image}
                     alt={text}
                     width={200}
                     height={200}
                     priority
                 />
-                <div >
-                    <h4>{id}</h4>
+                <div className={styles.description}>
                     <p>{text}</p>
                     <p>Likes: {likes}</p>
-                    {tags.map((tag: string) => {
-                        return <p key={tag}>{tag}</p>
-                    })}
+                    <div className={styles.tags}>
+                        {tags.map((tag: string) => {
+                            return <p key={tag} className={styles.tag}>{tag}</p>
+                        })}
+                    </div>
                 </div>
             </div>
         </div>

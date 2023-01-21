@@ -10,7 +10,9 @@ export default function Nav() {
             <Link href="/">
                 Home
             </Link>
-            
+            <Link href="/create">
+                Create Post
+            </Link>
         </div>
     </nav>
     )
