@@ -2,7 +2,7 @@ import type { NextPage } from 'next';
 import { useRouter } from "next/router";
 import { useQuery } from 'react-query';
 import Layout from "@/components/Layout";
-import Post from "@/components/Post";
+import PostPage from "@/components/PostPage";
 
 interface IdData {
     id: string
@@ -35,18 +35,16 @@ const IdPage: NextPage = () => {
     const router = useRouter();
     const {id} = router.query;
 
-    const {data, isLoading, isFetching } = useQuery<IdData>(["id", id], () => getPostById(id as string));
+    const { data, isLoading } = useQuery<IdData>(["id", id], () => getPostById(id as string));
       
     
     if (isLoading) return <span>Loading...</span>
 
     if(!data) return <span>No data!</span>
 
-    console.log(data);
-
     return (
         <Layout title={data.id}>
-            <Post post={data} />
+            <PostPage post={data} />
         </Layout>
     )
 }

@@ -33,7 +33,7 @@ const getPostsData = async () => await (
 ).json();
 
 const Home: NextPage = () => {
-  const {data, isLoading, isFetching } = useQuery<PostsData>("posts", getPostsData);
+  const { data, isLoading } = useQuery<PostsData>("posts", getPostsData);
   
   //isLoading may not be necessary anymore as data is prefetched from cache
   if (isLoading) return <span>Loading...</span>
@@ -60,7 +60,7 @@ const Home: NextPage = () => {
 
 export default Home;
 
-//server-side fetching with NextJS
+//server-side fetching with NextJS (SSG)
 export async function getStaticProps() {
   const queryClient = new QueryClient();
 

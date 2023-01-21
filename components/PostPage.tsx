@@ -1,5 +1,5 @@
 import Image from "next/image";
-import styles from '@/styles/Post.module.css'
+import styles from '@/styles/PostPage.module.css'
 import { formatDate, formatTitle } from '@/js/utils.js';
 
 interface postData {
@@ -21,8 +21,8 @@ interface postData {
     }
 }
 
-export default function Post({post}: postData) {
-    const {text, image, publishDate, likes, tags, owner} = post;
+export default function PostPage({post}: postData) {
+    const {id, text, image, publishDate, likes, tags, owner} = post;
 
     return (
         <div className={styles.card}>
@@ -30,8 +30,8 @@ export default function Post({post}: postData) {
                 <Image
                     src={owner.picture}
                     alt={`${formatTitle(owner.title)} ${owner.firstName} ${owner.lastName}`}
-                    width={50}
-                    height={50}
+                    width={64}
+                    height={64}
                 />
                 <div>
                     <p>{`${formatTitle(owner.title)} ${owner.firstName} ${owner.lastName}`}</p>
@@ -39,21 +39,23 @@ export default function Post({post}: postData) {
                 </div>
             </div>
             <div className={styles.card__grid}>
-                <Image
-                    src={image}
-                    alt={text}
-                    width={200}
-                    height={200}
-                    priority
-                />
+                <div className={styles.postImage}>
+                    <Image
+                        src={image}
+                        alt={text}
+                        fill
+                        priority
+                    />
+                </div>
                 <div className={styles.description}>
                     <p>{text}</p>
-                    <p>Likes: {likes}</p>
                     <div className={styles.tags}>
                         {tags.map((tag: string) => {
-                            return <p key={tag} className={styles.tag}>{tag}</p>
+                            return <a href="" key={tag} className={styles.tag}>{tag}</a>
                         })}
                     </div>
+                    <p>Likes: {likes}</p>
+                    
                 </div>
             </div>
         </div>
