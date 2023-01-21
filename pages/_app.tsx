@@ -1,13 +1,30 @@
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
-import { QueryClient, QueryClientProvider } from 'react-query'
+import { Hydrate, QueryClient, QueryClientProvider } from 'react-query'
+import { useRef } from 'react';
 
-const queryClient = new QueryClient();
+function App({ Component, pageProps }: AppProps) {
+  //To ensure data is not shared between uses and requests, useRef is used.
+  const queryClient = useRef(new QueryClient({
+    //Setting to not max out 500 free api calls per day as,
+    //if user leave app,
+    //React Query automatically requests fresh data for you in the background
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false,
+      },
+    },
+  }));
 
-export default function App({ Component, pageProps }: AppProps) {
   return (
-    <QueryClientProvider client={queryClient}>
-      <Component {...pageProps} />
+    <QueryClientProvider client={queryClient.current}>
+      {/* Hydrate component places query into cache on the server,
+       then grab this cache and send it using dehydratedState prop*/}
+      <Hydrate state={pageProps.dehydratedState}>
+        <Component {...pageProps} />
+      </Hydrate>
     </QueryClientProvider>
   )
 }
+
+export default App;
