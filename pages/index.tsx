@@ -15,6 +15,7 @@ interface PostsData {
       title: string
       firstName: string
       lastName: string
+      picture: string
     }
     publishDate: string
     tags: string[]
@@ -25,7 +26,6 @@ interface PostsData {
 //First awaits for the data then awaits again when converted to JSON
 const getPostsData = async () => await (
   await fetch(`https://dummyapi.io/data/v1/post?limit=10`, {
-    method: "GET",
     headers: {
       "app-id": "63cada995bc52b0fecc614e9",
     }

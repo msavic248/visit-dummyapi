@@ -5,6 +5,7 @@ import { formatDate, formatTitle } from '@/js/utils.js';
 export default function Post({post}: any) {
     const {id, text, image, publishDate, likes, tags, owner} = post;
 
+
     return (
         <div className={styles.card}>
             <div className={styles.card__flex}>
