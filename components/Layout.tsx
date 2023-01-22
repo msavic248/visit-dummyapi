@@ -2,6 +2,7 @@ import Head from 'next/head';
 import { ReactNode } from 'react';
 import { Inter } from '@next/font/google'
 import Nav from "./Nav";
+import Footer from "./Footer";
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -22,6 +23,11 @@ const Layout = ({children, title="Home - Milos Savic"}: Props) => {
         </Head>
         <Nav />
         <main>{children}</main>
+        <Footer 
+          fullName="Milos Savic"
+          gitHubLink="https://github.com/msavic248"
+          linkedInLink="https://www.linkedin.com/in/milos-savic-86690a211/"
+        />
     </div>
   )
 }

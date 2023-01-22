@@ -47,6 +47,9 @@ function Comments({id}: any) {
         setComment("");
     }
 
+
+    console.log(data.data)
+
     return (
         <>
             <h4>Comments</h4>
@@ -72,6 +75,7 @@ function Comments({id}: any) {
                     </li>
                     )
                 })}
+                {data.data.length === 0 && <p>No comments!</p>}
             </ul>
             <form className={styles.form} onSubmit={handleFormSubmit}>
                 <label htmlFor="comment"><h4>Add a comment:</h4></label>

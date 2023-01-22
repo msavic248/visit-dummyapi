@@ -1,5 +1,6 @@
 import styles from '@/styles/Nav.module.css';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Nav() {
 
@@ -8,11 +9,23 @@ export default function Nav() {
     <nav>
         <div className={styles.navbar}>
             <Link href="/">
-                Home
+                <Image 
+                    src="/favicon.ico"
+                    alt="Vercel icon"
+                    width={32}
+                    height={32}    
+                />
             </Link>
-            <Link href="/create">
-                Create Post
-            </Link>
+            <ul>
+                <span>
+                    <Link href="/">
+                        Home
+                    </Link>
+                </span>
+                <Link href="/create">
+                    Create Post
+                </Link>
+            </ul>
         </div>
     </nav>
     )
