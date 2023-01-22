@@ -19,6 +19,14 @@
     border-radius: 32px;
 }
 
+.card__flex small {
+    margin-left: auto;
+}
+
+.id__mo {
+    display: none;
+}
+
 .card__grid {
     display: flex;
     flex-direction: column;
@@ -34,6 +42,7 @@
     object-fit: contain;
     position: relative !important;
     height: unset !important;
+    max-height: 100vh;
 }
 
 .card p, .card h4, .card small {
@@ -70,4 +79,21 @@
 
 .tag:hover {
     opacity: 0.8;
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+    .id__mo {
+        display: block;
+        font-size: 0.7rem;
+        padding-top: 0.2rem;
+    }
+
+    .id__pc {
+        display: none;
+    }
+
+    .card__flex small {
+        margin-left: 0;
+    }
 }

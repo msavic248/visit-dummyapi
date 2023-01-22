@@ -4,6 +4,7 @@ import { dehydrate, QueryClient, useQuery } from 'react-query';
 import Layout from '@/components/Layout';
 import Post from '@/components/Post';
 import Link from 'next/link';
+import loader from "@/styles/Loader.module.css";
 
 interface PostsData {
   data: {
@@ -36,9 +37,9 @@ const Home: NextPage = () => {
   const { data, isLoading } = useQuery<PostsData>("posts", getPostsData);
   
   //isLoading may not be necessary anymore as data is prefetched from cache
-  if (isLoading) return <span>Loading...</span>
+  if (isLoading) return <Layout><div className={loader.center}><div className={loader.lds__roller}><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div></Layout>
 
-  if(!data) return <span>No data!</span>
+  if(!data) return <Layout><span>No data!</span></Layout>
 
   return (
     <Layout>

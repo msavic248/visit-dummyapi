@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { useQuery } from 'react-query';
 import Layout from "@/components/Layout";
 import PostPage from "@/components/PostPage";
+import loader from "@/styles/Loader.module.css";
 
 interface IdData {
     id: string
@@ -37,10 +38,9 @@ const IdPage: NextPage = () => {
 
     const { data, isLoading } = useQuery<IdData>(["id", id], () => getPostById(id as string));
       
-    
-    if (isLoading) return <span>Loading...</span>
+    if (isLoading) return <Layout><div className={loader.center}><div className={loader.lds__roller}><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div></Layout>
 
-    if(!data) return <span>No data!</span>
+    if(!data) return <Layout><span>No data!</span></Layout>
 
     return (
         <Layout title={data.id}>

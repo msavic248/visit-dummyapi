@@ -48,7 +48,7 @@ export default function Post({post}: postData) {
                 />
                 <div className={styles.description}>
                     <p>{text}</p>
-                    <p>Likes: {likes}</p>
+                    <p className={styles.likes}>Likes: {likes}</p>
                     <div className={styles.tags}>
                         {tags.map((tag: string) => {
                             return <p key={tag} className={styles.tag}>{tag}</p>

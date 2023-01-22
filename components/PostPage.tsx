@@ -36,7 +36,9 @@ export default function PostPage({post}: postData) {
                 <div>
                     <p>{`${formatTitle(owner.title)} ${owner.firstName} ${owner.lastName}`}</p>
                     <small>{formatDate(publishDate)}</small>
+                    <p className={styles.id__mo}>{id}</p>
                 </div>
+                <small className={styles.id__pc}>{id}</small>
             </div>
             <div className={styles.card__grid}>
                 <div className={styles.postImage}>
