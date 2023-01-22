@@ -34,7 +34,7 @@ export default function Post({post}: postData) {
                     height={50}
                 />
                 <div>
-                    <p>{`${formatTitle(owner.title)} ${owner.firstName} ${owner.lastName}`}</p>
+                    <h4>{`${formatTitle(owner.title)} ${owner.firstName} ${owner.lastName}`}</h4>
                     <small>{formatDate(publishDate)}</small>
                 </div>
             </div>

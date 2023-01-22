@@ -93,6 +93,11 @@
         display: none;
     }
 
+    .card__flex > img {
+        margin-right: 0.75rem;
+        border-radius: 32px;
+    }
+
     .card__flex small {
         margin-left: 0;
     }

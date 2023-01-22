@@ -22,10 +22,8 @@ interface IdData {
     text: string
 }
 
-
-
 const getPostById = async (id: string) => await (
-    await fetch (`https://dummyapi.io/data/v1/post/${id}`, {
+    await fetch(`https://dummyapi.io/data/v1/post/${id}`, {
         headers: {
             "app-id": "63cada995bc52b0fecc614e9",
         }

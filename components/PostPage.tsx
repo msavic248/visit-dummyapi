@@ -1,6 +1,7 @@
 import Image from "next/image";
 import styles from '@/styles/PostPage.module.css'
 import { formatDate, formatTitle } from '@/js/utils.js';
+import Comments from "./Comments";
 
 interface postData {
     post: {
@@ -34,7 +35,7 @@ export default function PostPage({post}: postData) {
                     height={64}
                 />
                 <div>
-                    <p>{`${formatTitle(owner.title)} ${owner.firstName} ${owner.lastName}`}</p>
+                    <h4>{`${formatTitle(owner.title)} ${owner.firstName} ${owner.lastName}`}</h4>
                     <small>{formatDate(publishDate)}</small>
                     <p className={styles.id__mo}>{id}</p>
                 </div>
@@ -60,6 +61,7 @@ export default function PostPage({post}: postData) {
                     
                 </div>
             </div>
+            <Comments id={id} />
         </div>
     )
 }
