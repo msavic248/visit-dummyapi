@@ -49,13 +49,13 @@ const createPost = async ({id, formImage, formText, formTag, jsonDate}: any) => 
 const CreatePage: NextPage = () => {
   const [formImage, setFormImage] = useState("");
   const [formText, setFormText] = useState("");
-  const [selectedTag, setSelectedTag] = useState("");
+  const [selectedTag, setSelectedTag] = useState<any>("");
   const [formTag, setFormTag] = useState("");
 
   const mappedTags = useMemo(() => {
     const filteredTags = tags.data.filter(Boolean);
 
-    return filteredTags.map(tag => {
+    return filteredTags.map((tag) => {
       return { value: `${tag}`, label: `${tag}`}
     })
   }, []);
