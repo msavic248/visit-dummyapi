@@ -1,9 +1,9 @@
 import styles from '@/styles/Create.module.css';
 import type { NextPage } from 'next';
-import { v4 as uuidv4 } from 'uuid';
+// import { v4 as uuidv4 } from 'uuid';
 import { useState, useMemo } from 'react';
-import Select from 'react-select';
 import { useMutation } from 'react-query';
+import Select from 'react-select';
 import Layout from "@/components/Layout";
 import tags from "@/js/tags.json";
 
@@ -91,12 +91,12 @@ const CreatePage: NextPage = () => {
       <h1>Create Post</h1>
       <form onSubmit={handleFormSubmit} className={styles.form}>
         <div>
-          <label htmlFor="image">Imgur URL:</label>
+          <label htmlFor="image">Image URL:</label>
           <input type="text" name="image" id="image" className={styles.image} value={formImage} onChange={event => setFormImage(event.target.value)} placeholder="Add an imgur url..." />
         </div>
         <div>
           <label htmlFor="text">Description:</label>
-          <input type="text" name="text" id="text" className={styles.image} value={formText} onChange={event => setFormText(event.target.value)} placeholder="Add a description..." />
+          <textarea name="text" id="text" className={styles.image} value={formText} onChange={event => setFormText(event.target.value)} placeholder="Add a description..." />
         </div>
         <div>
           <label htmlFor="tags">Tags:</label>

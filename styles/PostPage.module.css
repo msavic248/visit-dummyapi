@@ -60,6 +60,20 @@
     padding-bottom: 1rem;
 }
 
+.description__flex {
+    display: flex;
+    justify-content: space-between;
+}
+
+.edit {
+    margin: 0rem 0.5rem 0 0.5rem;
+}
+
+.edit__button {
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    border-radius: 1px;
+}
+
 .tags {
     /* align-self: center; */
     display: flex;
@@ -100,5 +114,14 @@
 
     .card__flex small {
         margin-left: 0;
+    }
+
+    .description__flex {
+        flex-direction: column;
+        padding-bottom: 1rem;
+    }
+
+    .edit {
+        margin: 0rem 0rem 0rem 0rem;
     }
 }
