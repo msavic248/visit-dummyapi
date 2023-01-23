@@ -47,12 +47,9 @@ function Comments({id}: any) {
         setComment("");
     }
 
-
-    console.log(data.data)
-
     return (
         <>
-            <h4>Comments</h4>
+            <h4 className={styles.title}>Comments</h4>
             <ul className={styles.list}>
                 {data.data.map(comment => {
                     return (

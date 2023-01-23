@@ -26,7 +26,7 @@ interface PostsData {
 
 //First awaits for the data then awaits again when converted to JSON
 const getPostsData = async () => await (
-  await fetch(`https://dummyapi.io/data/v1/post?limit=10`, {
+  await fetch(`https://dummyapi.io/data/v1/post?limit=20`, {
     headers: {
       "app-id": "63cada995bc52b0fecc614e9",
     }
