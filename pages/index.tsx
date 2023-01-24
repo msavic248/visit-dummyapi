@@ -66,7 +66,7 @@ const Home: NextPage = () => {
   })
 
   useEffect(() => {
-    setTag(router.query.keyword)
+    setTag(router.query.keyword as string)
   
   }, [router.query.keyword])
   
