@@ -8,6 +8,7 @@ import Select from 'react-select';
 import Layout from "@/components/Layout";
 import tags from "@/js/tags.json";
 import loader from "@/styles/Loader.module.css";
+import Button from '@/components/Button';
 
 interface IdData {
   id: string
@@ -26,6 +27,14 @@ interface IdData {
   text: string
 }
 
+interface Data {
+  id: string
+  formImage: string
+  formText: string
+  formTag: string[]
+  jsonDate: string
+}
+
 const getPostById = async (id: string) => await (
   await fetch(`https://dummyapi.io/data/v1/post/${id}`, {
       headers: {
@@ -34,16 +43,37 @@ const getPostById = async (id: string) => await (
   })
 ).json();
 
+const patchPost = async (id: string, formImage: string, formTag: string[], formText: string) => await (
+  await fetch(`https://dummyapi.io/data/v1/post/${id}`, {
+    method: 'PATCH',
+    headers: {
+      "app-id": "63cada995bc52b0fecc614e9",
+      'Content-type': 'application/json',
+    },
+    body: JSON.stringify({
+      image: formImage,
+      tags: formTag,
+      text: formText
+    })
+  })
+  ).json();
+
 const EditPage: NextPage = () => {
   const router = useRouter();
   const {id} = router.query;
 
-  const { data, isLoading } = useQuery<IdData>(["id", id], () => getPostById(id as string));
+  const {
+    data,
+    isLoading
+  } = useQuery<IdData>({
+    queryKey: ["id", id],
+    queryFn: () => getPostById(id as string)
+  });
 
   const [formImage, setFormImage] = useState("");
   const [formText, setFormText] = useState("");
   const [selectedTag, setSelectedTag] = useState<any>(null);
-  const [formTag, setFormTag] = useState("");
+  const [formTag, setFormTag] = useState([]);
 
   const mappedTags = useMemo(() => {
     const filteredTags = tags.data.filter(Boolean);
@@ -52,6 +82,10 @@ const EditPage: NextPage = () => {
       return { value: `${tag}`, label: `${tag}`}
     })
   }, []);
+
+  const mutation = useMutation({
+    mutationFn: () => patchPost(id as string, formImage, formTag, formText)
+  })
 
   useEffect(() => {
     setFormImage(`${data?.image}`)
@@ -71,22 +105,19 @@ const EditPage: NextPage = () => {
 
   if(!data) return <Layout><span>No data!</span></Layout>
 
-  console.log(data)
 
   const handleFormSubmit = (event: any) => {
     event.preventDefault();
 
-    // const id = uuidv4();
-    // const date = new Date();
-    // const jsonDate = date.toJSON();
-
     //fetch POST here
-    // mutation.mutate({id, formImage, formText, formTag, jsonDate})
-    // console.log(mutation.data)
+    mutation.mutate()
+
+    console.log(mutation.data)
+    console.log(id)
 
     setFormImage("");
     setFormText("");
-    setFormTag("");
+    setFormTag([]);
     setSelectedTag("");
 
     router.push(`/${id}`)
@@ -103,7 +134,9 @@ const EditPage: NextPage = () => {
   return (
     <Layout title="Edit Post">
       <div className={styles.title}>
-        <Link href={`/${id}`}>Go Back</Link>
+        <Link href={`/${id}`}>
+          <Button>Go Back</Button>
+        </Link>
         <h1>Edit Post</h1>
       </div>
 
@@ -129,7 +162,7 @@ const EditPage: NextPage = () => {
           />
         </div>
         <div className={styles.form__button}>
-          <input type="submit" />
+          <Button type="submit">Submit edit</Button>
         </div>
       </form>
     </Layout>

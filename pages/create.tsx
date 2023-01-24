@@ -1,11 +1,11 @@
 import styles from '@/styles/Create.module.css';
 import type { NextPage } from 'next';
-// import { v4 as uuidv4 } from 'uuid';
 import { useState, useMemo } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import Select from 'react-select';
 import Layout from "@/components/Layout";
 import tags from "@/js/tags.json";
+import Button from '@/components/Button';
 
 // const filteredTags = tags.data.filter(Boolean);
 
@@ -21,7 +21,15 @@ import tags from "@/js/tags.json";
 //   })
 // ).json();
 
-const createPost = async ({id, formImage, formText, formTag, jsonDate}: any) => await (
+interface Data {
+    id: string
+    formImage: string
+    formText: string
+    formTag: string[]
+    jsonDate: string
+}
+
+const createPost = async (data: Data) => await (
   await fetch(`https://dummyapi.io/data/v1/post/create`, {
     method: 'POST',
     headers: {
@@ -29,8 +37,8 @@ const createPost = async ({id, formImage, formText, formTag, jsonDate}: any) => 
       'Content-type': 'application/json',
     },
     body: JSON.stringify({
-      id: id,
-      image: formImage,
+      id: data.id,
+      image: data.formImage,
       likes: 0,
       owner: {
         id: '60d0fe4f5311236168a109f4',
@@ -39,9 +47,9 @@ const createPost = async ({id, formImage, formText, formTag, jsonDate}: any) => 
         lastName: 'Holland',
         picture: 'https://randomuser.me/api/portraits/med/men/58.jpg'
       },
-      publishDate: jsonDate,
-      tags: formTag,
-      text: formText
+      publishDate: data.jsonDate,
+      tags: data.formTag,
+      text: data.formText
     })
   })
 ).json();
@@ -50,7 +58,7 @@ const CreatePage: NextPage = () => {
   const [formImage, setFormImage] = useState("");
   const [formText, setFormText] = useState("");
   const [selectedTag, setSelectedTag] = useState<any>("");
-  const [formTag, setFormTag] = useState("");
+  const [formTag, setFormTag] = useState<string[]>([]);
 
   const mappedTags = useMemo(() => {
     const filteredTags = tags.data.filter(Boolean);
@@ -59,23 +67,30 @@ const CreatePage: NextPage = () => {
       return { value: `${tag}`, label: `${tag}`}
     })
   }, []);
+
+  const id = crypto.randomUUID();
+  const date = new Date();
+  const jsonDate = date.toJSON();
   
-  // const mutation = useMutation(createPost);
+  const mutation = useMutation({
+    mutationFn: () => createPost({id: id, formImage: formImage, formText: formText, formTag: formTag, jsonDate: jsonDate}),
+    onSuccess: () => {
+      alert("Successfully posted")
+    }
+  });
 
   const handleFormSubmit = (event: any) => {
     event.preventDefault();
 
-    // const id = uuidv4();
-    // const date = new Date();
-    // const jsonDate = date.toJSON();
-
     //fetch POST here
-    // mutation.mutate({id, formImage, formText, formTag, jsonDate})
-    // console.log(mutation.data)
+    mutation.mutate()
+
+    console.log(id);
+    console.log(mutation.data)
 
     setFormImage("");
     setFormText("");
-    setFormTag("");
+    setFormTag([]);
     setSelectedTag("");
   }
 
@@ -111,7 +126,7 @@ const CreatePage: NextPage = () => {
           />
         </div>
         <div className={styles.form__button}>
-          <input type="submit" />
+          <Button type="submit" >Submit post</Button>
         </div>
       </form>
       {/* <div className={styles.note}>

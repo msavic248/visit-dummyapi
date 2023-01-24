@@ -3,16 +3,6 @@
     max-width: 700px;
 }
 
-.title a {
-    border: 1px solid gray;
-    padding: 0.5rem 1rem 0.5rem 1rem;
-    border-radius: 4px;
-}
-
-.title a:hover {
-    color: darkgray;
-}
-
 .title h1 {
     text-align: center;
 }
@@ -49,13 +39,4 @@
 .form__button {
     display: flex;
     justify-content: center;
-}
-
-.form__button > input {
-    padding: 0.5rem 1rem 0.5rem 1rem;
-    border-radius: 1px;
-}
-
-.form__button > input:hover {
-    color: darkgray;
 }

@@ -34,7 +34,13 @@ const IdPage: NextPage = () => {
     const router = useRouter();
     const {id} = router.query;
 
-    const { data, isLoading } = useQuery<IdData>(["id", id], () => getPostById(id as string));
+    const {
+        data,
+        isLoading
+    } = useQuery<IdData>({
+        queryKey: ["id", id],
+        queryFn: () => getPostById(id as string)
+    });
       
     if (isLoading) return <Layout><div className={loader.center}><div className={loader.lds__roller}><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div></Layout>
 

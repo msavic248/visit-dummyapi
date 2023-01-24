@@ -4,6 +4,7 @@ import { formatDate, formatTitle } from '@/js/utils.js';
 import loader from '@/styles/Loader.module.css';
 import styles from '@/styles/Comments.module.css';
 import { useState } from 'react';
+import Button from './Button';
 
 interface CommentData {
     data: {
@@ -30,12 +31,17 @@ const getCommentById = async (id: string) => await (
 ).json();
 
 
-
 function Comments({id}: any) {
     const [comment, setComment] = useState("");
-    const { data, isInitialLoading } = useQuery<CommentData>(["comment", id], () => getCommentById(id as string));
+    const {
+        data,
+        isLoading
+    } = useQuery<CommentData>({
+        queryKey: ["comment", id],
+        queryFn: () => getCommentById(id as string)
+});
       
-    if (isInitialLoading) return <div className={loader.center}><div className={loader.lds__roller}><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>
+    if (isLoading) return <div className={loader.center}><div className={loader.lds__roller}><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>
 
     if(!data) return <span>No data!</span>
 
@@ -78,7 +84,7 @@ function Comments({id}: any) {
                 <label htmlFor="comment"><h4>Add a comment:</h4></label>
                 <textarea name="comment" id="comment" value={comment} onChange={event => setComment(event.target.value)} placeholder="Comment here..." />
                 <div className={styles.form__button}>
-                    <input type="submit" value="Submit" />
+                    <Button type="submit">Comment</Button>
                 </div>
             </form>
         </>

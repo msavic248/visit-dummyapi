@@ -3,6 +3,7 @@ import Link from "next/link";
 import styles from '@/styles/PostPage.module.css'
 import { formatDate, formatTitle } from '@/js/utils.js';
 import Comments from "./Comments";
+import Button from "./Button";
 
 interface postData {
     post: {
@@ -54,7 +55,9 @@ export default function PostPage({post}: postData) {
                 <div className={styles.description}>
                     <div className={styles.description__flex}>
                         <p>{text}</p>
-                        <Link href={`/${id}/edit`} className={styles.edit}><button className={styles.edit__button}>Edit Post</button></Link>
+                        <Link href={`/${id}/edit`} className={styles.edit}>
+                            <Button>Edit post</Button>
+                        </Link>
                     </div>
                     <div className={styles.tags}>
                         {tags.map((tag: string) => {

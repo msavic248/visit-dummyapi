@@ -69,11 +69,6 @@
     margin: 0rem 0.5rem 0 0.5rem;
 }
 
-.edit__button {
-    padding: 0.5rem 1rem 0.5rem 1rem;
-    border-radius: 1px;
-}
-
 .tags {
     /* align-self: center; */
     display: flex;
