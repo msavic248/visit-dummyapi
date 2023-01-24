@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import styles from '@/styles/PostPage.module.css'
 import { formatDate, formatTitle } from '@/js/utils.js';
 import Comments from "./Comments";
@@ -25,6 +26,7 @@ interface postData {
 }
 
 export default function PostPage({post}: postData) {
+    const router = useRouter();
     const {id, text, image, publishDate, likes, tags, owner} = post;
 
     return (
@@ -61,7 +63,20 @@ export default function PostPage({post}: postData) {
                     </div>
                     <div className={styles.tags}>
                         {tags.map((tag: string) => {
-                            return <a href="" key={tag} className={styles.tag}>{tag}</a>
+                            return (
+                                <Button
+                                key={tag}
+                                onClick={() => {
+                                    router.push({
+                                        pathname: '/',
+                                        query: { keyword: tag}
+                                    })
+                                }}
+                                tag
+                                >
+                                    {tag}
+                                </Button>
+                            )
                         })}
                     </div>
                     <p>Likes: {likes}</p>

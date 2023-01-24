@@ -1,11 +1,12 @@
 import styles from '@/styles/Home.module.css'
 import type { NextPage } from 'next';
 import { dehydrate, QueryClient, useQuery } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Layout from '@/components/Layout';
 import PostList from '@/components/PostList';
 import Button from '@/components/Button';
 import loader from "@/styles/Loader.module.css";
+import { useRouter } from 'next/router'
 
 interface PostsData {
   data: {
@@ -43,6 +44,8 @@ const getPostsbyTag = async (tag: string) => await (
 ).json();
 
 const Home: NextPage = () => {
+  const router = useRouter()
+
   const { 
     data, 
     isLoading 
@@ -62,6 +65,12 @@ const Home: NextPage = () => {
       enabled: !!tag
   })
 
+  useEffect(() => {
+    setTag(router.query.keyword)
+  
+  }, [router.query.keyword])
+  
+
   const handleButtonClick = (tag: string) => {
     setTag(tag)
     window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
@@ -77,10 +86,6 @@ const Home: NextPage = () => {
   if(!data) return <Layout><span>No data!</span></Layout>
 
   if(tagLoading) return <Layout><div className={loader.center}><div className={loader.lds__roller}><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div></Layout>
-
-  // if(!tagData) return <Layout><span>No tag data!</span></Layout>
-
-  console.log(tagData);
 
   return (
     <Layout>

@@ -18,6 +18,16 @@
   gap: 2rem;
 }
 
+.navbar a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.navbar a p {
+  display: none;
+}
+
 .navbar img {
   display: grid;
   place-items: center;
@@ -27,6 +37,10 @@
 @media screen and (max-width: 700px) {
   .navbar ul > span {
     display: none;
+  }
+
+  .navbar a p {
+    display: block;
   }
 }
 

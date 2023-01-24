@@ -15,6 +15,7 @@ export default function Nav() {
                     width={32}
                     height={32}    
                 />
+                <p>Home</p>
             </Link>
             <ul>
                 <span>
