@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
 import { useRouter } from "next/router";
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import Layout from "@/components/Layout";
 import PostPage from "@/components/PostPage";
 import loader from "@/styles/Loader.module.css";

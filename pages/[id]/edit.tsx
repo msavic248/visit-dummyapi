@@ -3,7 +3,7 @@ import type { NextPage } from 'next';
 import Link from 'next/link';
 import { useRouter } from "next/router";
 import { useState, useMemo, useEffect } from 'react';
-import { useQuery, useMutation } from 'react-query';
+import { useQuery, useMutation } from '@tanstack/react-query';
 import Select from 'react-select';
 import Layout from "@/components/Layout";
 import tags from "@/js/tags.json";

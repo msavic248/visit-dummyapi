@@ -1,6 +1,6 @@
 import styles from '@/styles/Home.module.css'
 import type { NextPage } from 'next';
-import { dehydrate, QueryClient, useQuery } from 'react-query';
+import { dehydrate, QueryClient, useQuery } from '@tanstack/react-query';
 import Layout from '@/components/Layout';
 import Post from '@/components/Post';
 import Link from 'next/link';
@@ -34,7 +34,7 @@ const getPostsData = async () => await (
 ).json();
 
 const Home: NextPage = () => {
-  const { data, isLoading } = useQuery<PostsData>("posts", getPostsData);
+  const { data, isLoading } = useQuery<PostsData>(["posts"], getPostsData);
   
   //isLoading may not be necessary anymore as data is prefetched from cache
   if (isLoading) return <Layout><div className={loader.center}><div className={loader.lds__roller}><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div></Layout>
@@ -66,7 +66,7 @@ export async function getStaticProps() {
   const queryClient = new QueryClient();
 
   //Prefetches the data that we requested to pass along to the props
-  await queryClient.prefetchQuery<PostsData>("posts", getPostsData)
+  await queryClient.prefetchQuery<PostsData>(["posts"], getPostsData)
 
   //dehydratedState prop to dehydrate the data,
   //which is the prop taken by Hydrate to rehydrate the data to the Component

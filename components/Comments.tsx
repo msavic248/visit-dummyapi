@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import { useQuery } from '@tanstack/react-query';
 import Image from "next/image";
 import { formatDate, formatTitle } from '@/js/utils.js';
 import loader from '@/styles/Loader.module.css';
@@ -33,9 +33,9 @@ const getCommentById = async (id: string) => await (
 
 function Comments({id}: any) {
     const [comment, setComment] = useState("");
-    const { data, isLoading } = useQuery<CommentData>(["comment", id], () => getCommentById(id as string));
+    const { data, isInitialLoading } = useQuery<CommentData>(["comment", id], () => getCommentById(id as string));
       
-    if (isLoading) return <div className={loader.center}><div className={loader.lds__roller}><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>
+    if (isInitialLoading) return <div className={loader.center}><div className={loader.lds__roller}><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>
 
     if(!data) return <span>No data!</span>
 

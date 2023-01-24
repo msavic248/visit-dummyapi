@@ -2,7 +2,7 @@ import styles from '@/styles/Create.module.css';
 import type { NextPage } from 'next';
 // import { v4 as uuidv4 } from 'uuid';
 import { useState, useMemo } from 'react';
-import { useMutation } from 'react-query';
+import { useMutation } from '@tanstack/react-query';
 import Select from 'react-select';
 import Layout from "@/components/Layout";
 import tags from "@/js/tags.json";
