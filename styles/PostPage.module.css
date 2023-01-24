@@ -38,11 +38,11 @@
     padding-bottom: 1rem;
 }
 
-.postImage> img {
+.postImage > img {
     object-fit: contain;
     position: relative !important;
     height: unset !important;
-    max-height: 100vh;
+    max-height: 80vh;
 }
 
 .card p, .card h4, .card small {

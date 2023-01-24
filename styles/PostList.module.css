@@ -1,7 +1,7 @@
 .card {
     padding: 1rem;
     border-radius: 15px;
-    max-width: 500px;
+    max-width: 25rem;
     background-color: rgb(var(--callout-rgb));
     border: 1px solid rgb(var(--callout-border-rgb));
     box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
@@ -19,16 +19,19 @@
 }
 
 .card__grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    display: flex;
+    flex-direction: column;
     gap: 0.15rem;
 }
 
+.card__grid > a {
+    position: relative;
+    height: 25rem;
+}
+
 .card__grid img {
-    border-radius: 8px;
     object-fit: cover;
-    width: 100%;
-    max-width: 200px;
+    background-image: url("https://via.placeholder.com/1000?text=Loading...");
 }
 
 .card p, .card h4, .card small {
@@ -40,6 +43,8 @@
     flex-direction: column;
     justify-content: space-between;
     padding: 0.25rem 0.5rem 0.25rem 0.5rem;
+    height: 8rem;
+    max-height: 8rem;
 }
 
 .likes {
@@ -52,17 +57,4 @@
     gap: 0.5rem;
     flex-wrap: wrap;
     
-}
-
-.tag {
-    padding: 4px 6px;
-    background-color: rgb(var(--card-rgb));
-    border-radius: 5px;
-    text-decoration: none;
-    text-transform: uppercase;
-    font-size: 0.7rem;
-}
-
-.tag:hover {
-    opacity: 0.8;
 }

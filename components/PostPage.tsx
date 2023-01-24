@@ -51,6 +51,9 @@ export default function PostPage({post}: postData) {
                         src={image}
                         alt={text}
                         fill
+                        sizes="(max-width: 768px) 100vw,
+                            (max-width: 1200px) 50vw,
+                            33vw"
                         priority
                     />
                 </div>

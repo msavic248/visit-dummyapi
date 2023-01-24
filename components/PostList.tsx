@@ -49,8 +49,10 @@ export default function PostList(props: any) {
                     <Image
                         src={image}
                         alt={text}
-                        width={200}
-                        height={200}
+                        sizes="(max-width: 768px) 100vw,
+                            (max-width: 1200px) 50vw,
+                            33vw"
+                        fill
                         priority
                     />
                 </Link>
