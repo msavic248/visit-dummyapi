@@ -1,9 +1,10 @@
 import styles from '@/styles/Home.module.css'
 import type { NextPage } from 'next';
 import { dehydrate, QueryClient, useQuery } from '@tanstack/react-query';
+import { useState } from 'react';
 import Layout from '@/components/Layout';
-import Post from '@/components/Post';
-import Link from 'next/link';
+import PostList from '@/components/PostList';
+import Button from '@/components/Button';
 import loader from "@/styles/Loader.module.css";
 
 interface PostsData {
@@ -33,6 +34,14 @@ const getPostsData = async () => await (
   })
 ).json();
 
+const getPostsbyTag = async (tag: string) => await (
+  await fetch(`https://dummyapi.io/data/v1/tag/${tag}/post?limit=20`, {
+    headers: {
+      "app-id": "63cada995bc52b0fecc614e9",
+    }
+  })
+).json();
+
 const Home: NextPage = () => {
   const { 
     data, 
@@ -41,25 +50,63 @@ const Home: NextPage = () => {
     queryKey: ["posts"], 
     queryFn: getPostsData
   });
-  
+
+  const [tag, setTag] = useState("");
+
+  const {
+      data: tagData,
+      isInitialLoading: tagLoading,
+  } = useQuery({
+      queryKey: ["postTag", tag],
+      queryFn: () => getPostsbyTag(tag),
+      enabled: !!tag
+  })
+
+  const handleButtonClick = (tag: string) => {
+    setTag(tag)
+    window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+  }
+
+  const handleClearClick = () => {
+    setTag("")
+  }
+
   //isLoading may not be necessary anymore as data is prefetched from cache
   if (isLoading) return <Layout><div className={loader.center}><div className={loader.lds__roller}><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div></Layout>
 
   if(!data) return <Layout><span>No data!</span></Layout>
 
+  if(tagLoading) return <Layout><div className={loader.center}><div className={loader.lds__roller}><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div></Layout>
+
+  // if(!tagData) return <Layout><span>No tag data!</span></Layout>
+
+  console.log(tagData);
+
   return (
     <Layout>
         <h1 className={styles.h1}>Posts</h1>
+        {tagData
+          && <div className={styles.tag__info}>
+                <h2>Tag: {tag}</h2>
+                <Button onClick={handleClearClick} tag >Clear tag</Button>
+              </div>}
         <div className={styles.grid}>
-          {data?.data.map((post: any) => {
-            return (
-              <div key={post.id}>
-                <Link href={`/${post.id}`}>
-                  <Post post={post}/>
-                </Link>
-              </div>
-            )
-          })}
+          {tagData == undefined
+            ? data?.data.map((post: any) => {
+                return (
+                  <div key={post.id}>
+                    <PostList post={post} onButtonClick={handleButtonClick}/>
+                  </div>
+                )
+              })
+            : tagData?.data.map((post: any) => {
+                return (
+                  <div key={post.id}>
+                    <PostList post={post} onButtonClick={handleButtonClick}/>
+                  </div>
+                )
+            })
+          }
         </div>
     </Layout>
   )

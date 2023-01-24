@@ -24,7 +24,7 @@
     gap: 0.15rem;
 }
 
-.card__grid > img {
+.card__grid img {
     border-radius: 8px;
     object-fit: cover;
     width: 100%;
@@ -48,10 +48,10 @@
 }
 
 .tags {
-    /* align-self: center; */
     display: flex;
     gap: 0.5rem;
     flex-wrap: wrap;
+    
 }
 
 .tag {

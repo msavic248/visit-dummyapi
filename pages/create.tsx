@@ -6,6 +6,7 @@ import Select from 'react-select';
 import Layout from "@/components/Layout";
 import tags from "@/js/tags.json";
 import Button from '@/components/Button';
+import { v4 as uuidv4 } from 'uuid';
 
 // const filteredTags = tags.data.filter(Boolean);
 
@@ -68,7 +69,7 @@ const CreatePage: NextPage = () => {
     })
   }, []);
 
-  const id = crypto.randomUUID();
+  const id = uuidv4();
   const date = new Date();
   const jsonDate = date.toJSON();
   

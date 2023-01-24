@@ -1,6 +1,10 @@
 import Image from "next/image";
-import styles from '@/styles/Post.module.css'
+import Link from "next/link";
+import styles from '@/styles/PostList.module.css'
+import { useState, useEffect } from 'react';
+import { useQuery } from "@tanstack/react-query";
 import { formatDate, formatTitle } from '@/js/utils.js';
+import Button from "./Button";
 
 interface postData {
     post: {
@@ -21,8 +25,10 @@ interface postData {
     }
 }
 
-export default function Post({post}: postData) {
-    const {text, image, publishDate, likes, tags, owner} = post;
+export default function PostList(props: any) {
+
+    const {post, onButtonClick} = props;
+    const {id, text, image, publishDate, likes, tags, owner} = post;
 
     return (
         <div className={styles.card}>
@@ -39,19 +45,28 @@ export default function Post({post}: postData) {
                 </div>
             </div>
             <div className={styles.card__grid}>
-                <Image
-                    src={image}
-                    alt={text}
-                    width={200}
-                    height={200}
-                    priority
-                />
+                <Link href={`/${id}`}>
+                    <Image
+                        src={image}
+                        alt={text}
+                        width={200}
+                        height={200}
+                        priority
+                    />
+                </Link>
                 <div className={styles.description}>
                     <p>{text}</p>
                     <p className={styles.likes}>Likes: {likes}</p>
                     <div className={styles.tags}>
                         {tags.map((tag: string) => {
-                            return <p key={tag} className={styles.tag}>{tag}</p>
+                            return (
+                            <Button
+                            key={tag}
+                            onClick={() => onButtonClick(tag)}
+                            tag
+                            >
+                                {tag}
+                            </Button>)
                         })}
                     </div>
                 </div>

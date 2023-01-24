@@ -17,6 +17,12 @@
   padding-bottom: 2rem;
 }
 
+.tag__info {
+  display: flex;
+  padding-bottom: 1rem;
+  gap: 1rem;
+}
+
 /* Mobile */
 @media (max-width: 700px) {
   .grid {
