@@ -24,14 +24,32 @@
     gap: 0.15rem;
 }
 
-.card__grid > a {
+.card__image {
+    position: relative;
+}
+
+.card__image > a {
+    display: flex;
     position: relative;
     height: 25rem;
 }
 
-.card__grid img {
+.card__image img {
     object-fit: cover;
-    background-image: url("https://via.placeholder.com/1000?text=Loading...");
+}
+
+.card__heart {
+    position: absolute;
+    right: 1rem;
+    bottom: 0.5rem;
+}
+
+.button {
+    background: none;
+    border: none;
+    padding: 0;
+    font: inherit;
+    outline: inherit;
 }
 
 .card p, .card h4, .card small {

@@ -1,10 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from 'react';
 import styles from '@/styles/PostList.module.css'
-import { useState, useEffect } from 'react';
-import { useQuery } from "@tanstack/react-query";
 import { formatDate, formatTitle } from '@/js/utils.js';
 import Button from "./Button";
+import Heart from "./Heart";
 
 interface postData {
     post: {
@@ -26,9 +26,17 @@ interface postData {
 }
 
 export default function PostList(props: any) {
+    const [filled, setFilled] = useState(false);
 
-    const {post, onButtonClick} = props;
+    const handleButtonClick = () => {
+        setFilled(!filled)
+    }
+
+    const {post}: postData = props;
     const {id, text, image, publishDate, likes, tags, owner} = post;
+
+    const {onButtonClick} = props;
+
 
     return (
         <div className={styles.card}>
@@ -45,20 +53,28 @@ export default function PostList(props: any) {
                 </div>
             </div>
             <div className={styles.card__grid}>
-                <Link href={`/${id}`}>
-                    <Image
-                        src={image}
-                        alt={text}
-                        sizes="(max-width: 768px) 100vw,
-                            (max-width: 1200px) 50vw,
-                            33vw"
-                        fill
-                        priority
-                    />
-                </Link>
+                <div className={styles.card__image}>
+                    <Link href={`/${id}`}>
+                        <Image
+                            src={image}
+                            alt={text}
+                            sizes="(max-width: 768px) 100vw,
+                                (max-width: 1200px) 50vw,
+                                33vw"
+                            fill
+                            priority
+                        />
+                    </Link>
+                    <div className={styles.card__heart}>
+                        <button onClick={handleButtonClick} className={styles.button}>
+                            <Heart filled={filled} />
+                        </button>
+                        
+                    </div>
+                </div>
                 <div className={styles.description}>
                     <p>{text}</p>
-                    <p className={styles.likes}>Likes: {likes}</p>
+                    <p className={styles.likes}>Likes: {filled ? likes + 1 : likes}</p>
                     <div className={styles.tags}>
                         {tags.map((tag: string) => {
                             return (
