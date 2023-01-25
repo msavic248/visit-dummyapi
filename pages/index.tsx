@@ -48,8 +48,10 @@ const Home: NextPage = () => {
 
   const { 
     data, 
-    isLoading 
-  } = useQuery<PostsData>({
+    isLoading,
+    error,
+    isError
+  } = useQuery<PostsData, Error>({
     queryKey: ["posts"], 
     queryFn: getPostsData
   });
@@ -82,6 +84,8 @@ const Home: NextPage = () => {
 
   //isLoading may not be necessary anymore as data is prefetched from cache
   if (isLoading) return <Layout><div className={loader.center}><div className={loader.lds__roller}><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div></Layout>
+
+  if (isError) return <Layout><span>Error: {error.message}</span></Layout>
 
   if(!data) return <Layout><span>No data!</span></Layout>
 

@@ -1,10 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import { useRouter } from "next/router";
 import styles from '@/styles/PostPage.module.css'
 import { formatDate, formatTitle } from '@/js/utils.js';
 import Comments from "./Comments";
 import Button from "./Button";
+import Heart from "./Heart";
 
 interface postData {
     post: {
@@ -27,6 +29,12 @@ interface postData {
 
 export default function PostPage({post}: postData) {
     const router = useRouter();
+    const [filled, setFilled] = useState(false);
+
+    const handleButtonClick = () => {
+        setFilled(!filled)
+    }
+
     const {id, text, image, publishDate, likes, tags, owner} = post;
 
     return (
@@ -56,6 +64,11 @@ export default function PostPage({post}: postData) {
                             33vw"
                         priority
                     />
+                    <div className={styles.card__heart}>
+                        <button onClick={handleButtonClick} className={styles.button}>
+                            <Heart filled={filled} />
+                        </button>
+                    </div>
                 </div>
                 <div className={styles.description}>
                     <div className={styles.description__flex}>
@@ -82,7 +95,7 @@ export default function PostPage({post}: postData) {
                             )
                         })}
                     </div>
-                    <p>Likes: {likes}</p>
+                    <p>Likes: {filled ? likes + 1 : likes}</p>
                     
                 </div>
             </div>

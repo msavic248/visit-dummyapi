@@ -2,7 +2,6 @@ import styles from '@/styles/Heart.module.css';
 
 interface Props {
     filled?: Boolean
-    onClick?: React.MouseEventHandler<HTMLButtonElement>
 }
 
 export default function Heart({filled}: Props) {

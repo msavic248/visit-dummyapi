@@ -69,7 +69,6 @@ export default function PostList(props: any) {
                         <button onClick={handleButtonClick} className={styles.button}>
                             <Heart filled={filled} />
                         </button>
-                        
                     </div>
                 </div>
                 <div className={styles.description}>
