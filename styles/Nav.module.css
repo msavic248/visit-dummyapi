@@ -22,6 +22,11 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  transition: 0.2s;
+}
+
+.navbar a:hover {
+  transform: scale(1.05);
 }
 
 .navbar a p {

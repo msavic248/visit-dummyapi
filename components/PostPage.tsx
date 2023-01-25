@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import styles from '@/styles/PostPage.module.css'
 import { formatDate, formatTitle } from '@/js/utils.js';
+import Profile from "./Profile";
 import Comments from "./Comments";
 import Button from "./Button";
 import Heart from "./Heart";
@@ -29,7 +30,12 @@ interface postData {
 
 export default function PostPage({post}: postData) {
     const router = useRouter();
+    const [showProfile, setShowProfile] = useState(false);
     const [filled, setFilled] = useState(false);
+
+    const handleProfileClick = () => {
+        setShowProfile(!showProfile)
+    }
 
     const handleButtonClick = () => {
         setFilled(!filled)
@@ -38,16 +44,22 @@ export default function PostPage({post}: postData) {
     const {id, text, image, publishDate, likes, tags, owner} = post;
 
     return (
+        <>
+        {showProfile && <Profile owner={owner} showProfile={showProfile} onProfileClick={handleProfileClick}/>}
         <div className={styles.card}>
             <div className={styles.card__flex}>
-                <Image
-                    src={owner.picture}
-                    alt={`${formatTitle(owner.title)} ${owner.firstName} ${owner.lastName}`}
-                    width={64}
-                    height={64}
-                />
-                <div>
-                    <h4>{`${formatTitle(owner.title)} ${owner.firstName} ${owner.lastName}`}</h4>
+                <button className={styles.profile__button} onClick={handleProfileClick}>
+                    <Image
+                        src={owner.picture}
+                        alt={`${formatTitle(owner.title)} ${owner.firstName} ${owner.lastName}`}
+                        width={64}
+                        height={64}
+                    />
+                </button>
+                <div className={styles.card__profile__info}>
+                    <button className={styles.profile__button} onClick={handleProfileClick}>
+                        <h4>{`${formatTitle(owner.title)} ${owner.firstName} ${owner.lastName}`}</h4>
+                    </button>
                     <small>{formatDate(publishDate)}</small>
                     <p className={styles.id__mo}>{id}</p>
                 </div>
@@ -101,5 +113,7 @@ export default function PostPage({post}: postData) {
             </div>
             <Comments id={id} />
         </div>
+        </>
+        
     )
 }
