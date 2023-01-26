@@ -1,6 +1,5 @@
 //style imports
 import styles from './Profile.module.css'
-import loader from "@/styles/Loader.module.css";
 
 //component imports
 import Button from '../common/Button';
@@ -12,6 +11,7 @@ import { formatTitle, getRandomInt } from '@/js/utils.js';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useQuery } from '@tanstack/react-query';
+import ProfilePosts from './ProfilePosts';
 
 
 interface ownerData {
@@ -53,10 +53,6 @@ export default function Profile(props: any) {
         refetch();
     }
 
-    if(userLoading) return <div className={loader.center}><div className={loader.lds__roller}><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>
-
-    if(!userData) return <span>No user posts!</span>
-
     return (
         <div className={styles.profile}>
             <div className={styles.profile__card}>
@@ -68,27 +64,19 @@ export default function Profile(props: any) {
                         height={128}
                     />
                 </div>
+
+                {/* Follower count randomized for aesthetic purposes */}
                 <div className={styles.profile__info}>
                     <h3>{`${formatTitle(owner.title)} ${owner.firstName} ${owner.lastName}`}</h3>
                     <p>Followers: {getRandomInt(0, 100000)}</p>
                     <Button>Follow</Button>
                 </div>
+
+                {/* userData and userLoading passed down to ProfilePosts */}
                 <div className={styles.profile__posts}>
-                    <div className={styles.user__posts}>
-                        {userData.data.map((post: any) => {
-                            return (
-                                <Link key={post.id} href={`/${post.id}`}>
-                                    <Image 
-                                        src={post.image}
-                                        alt={post.text}
-                                        width={200}
-                                        height={200}
-                                    />
-                                </Link>
-                            )
-                        })}
-                    </div>
+                    <ProfilePosts userData={userData} userLoading={userLoading}/>
                 </div>
+
                 <div className={styles.profile__buttons}>
                     <Button onClick={onProfileClick}>Close</Button>
                 </div>
