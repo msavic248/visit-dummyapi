@@ -32,6 +32,12 @@
     justify-content: center;
 }
 
+.validation {
+    color: 	rgb(255, 0, 0, 0.95);
+    padding-bottom: 1rem;
+    margin-top: -1rem;
+}
+
 @media (prefers-color-scheme: dark) {
     .form {
         color: black;

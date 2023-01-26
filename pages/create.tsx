@@ -75,6 +75,8 @@ const CreatePage: NextPage = () => {
   const [formText, setFormText] = useState("");
   const [selectedTag, setSelectedTag] = useState<any>("");
   const [formTag, setFormTag] = useState<string[]>([]);
+  const [imageValidation, setImageValidation] = useState("");
+  const [textValidation, setTextValidation] = useState("");
 
   //tags are filtered to remove empty items then cached with useMemo
   const mappedTags = useMemo(() => {
@@ -104,6 +106,16 @@ const CreatePage: NextPage = () => {
   const handleFormSubmit = (event: any) => {
     event.preventDefault();
 
+    if(!formImage) {
+      setImageValidation("Please enter an image URL");
+      return ;
+    }
+
+    if(!formText) {
+      setTextValidation("Please enter post caption");
+      return ;
+    }
+
     //fetch POST here
     mutation.mutate()
 
@@ -111,6 +123,8 @@ const CreatePage: NextPage = () => {
     setFormText("");
     setFormTag([]);
     setSelectedTag("");
+    setImageValidation("");
+    setTextValidation("");
   }
 
   //Select library only works when format is {value: value, label: value},
@@ -130,10 +144,12 @@ const CreatePage: NextPage = () => {
           <label htmlFor="image">Image URL:</label>
           <input type="text" name="image" id="image" className={styles.image} value={formImage} onChange={event => setFormImage(event.target.value)} placeholder="Add an imgur url..." />
         </div>
+        <small className={styles.validation}>{imageValidation}</small>
         <div>
           <label htmlFor="text">Description:</label>
           <textarea name="text" id="text" className={styles.image} value={formText} onChange={event => setFormText(event.target.value)} placeholder="Add a description..." />
         </div>
+        <small className={styles.validation}>{textValidation}</small>
         <div>
           <label htmlFor="tags">Tags:</label>
           {/* options need to show all available tags,
