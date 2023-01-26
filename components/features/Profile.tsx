@@ -1,10 +1,18 @@
+//style imports
 import styles from './Profile.module.css'
 import loader from "@/styles/Loader.module.css";
-import Image from 'next/image';
-import { formatTitle, getRandomInt } from '@/js/utils.js';
-import { useQuery } from '@tanstack/react-query';
+
+//component imports
 import Button from '../common/Button';
+
+//utils import
+import { formatTitle, getRandomInt } from '@/js/utils.js';
+
+//library imports
+import Image from 'next/image';
 import Link from 'next/link';
+import { useQuery } from '@tanstack/react-query';
+
 
 interface ownerData {
     owner: {
@@ -27,6 +35,7 @@ const getPostsbyUser = async (id: string) => await (
 export default function Profile(props: any) {
     const {owner}: ownerData = props;
 
+    //enabled: false, means query won't run automatically
     const {
         data: userData,
         isInitialLoading: userLoading,
@@ -39,6 +48,7 @@ export default function Profile(props: any) {
 
     const {showProfile, onProfileClick} = props;
 
+    //refetch to run the query, based on if condition
     if(showProfile === true) {
         refetch();
     }

@@ -1,11 +1,19 @@
+//style imports
+import styles from './PostList.module.css'
+
+//component imports
+import Button from "../common/Button";
+import Heart from "../misc/Heart";
+import Profile from "./Profile";
+
+//utils import
+import { formatDate, formatTitle } from '@/js/utils.js';
+
+//library imports
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from 'react';
-import styles from './PostList.module.css'
-import { formatDate, formatTitle } from '@/js/utils.js';
-import Button from "../common/Button";
-import Heart from "../misc/Heart";
-import Profile from "./Profile";;
+
 
 interface postData {
     post: {
@@ -45,61 +53,63 @@ export default function PostList(props: any) {
 
     return (
         <>
-            {showProfile && <Profile owner={owner} showProfile={showProfile} onProfileClick={handleProfileClick}/>}
-            <div className={styles.card}>
-                <div className={styles.card__profile}>
+        {/* if showProfile is true, shows Profile pop-up */}
+        {showProfile && <Profile owner={owner} showProfile={showProfile} onProfileClick={handleProfileClick}/>}
+        
+        <div className={styles.card}>
+            <div className={styles.card__profile}>
+                <button className={styles.profile__button} onClick={handleProfileClick}>
+                    <Image
+                        src={owner.picture}
+                        alt={`${formatTitle(owner.title)} ${owner.firstName} ${owner.lastName}`}
+                        width={50}
+                        height={50}
+                    />
+                </button>
+                <div className={styles.card__profile__info}>
                     <button className={styles.profile__button} onClick={handleProfileClick}>
-                        <Image
-                            src={owner.picture}
-                            alt={`${formatTitle(owner.title)} ${owner.firstName} ${owner.lastName}`}
-                            width={50}
-                            height={50}
-                        />
+                        <h4>{`${formatTitle(owner.title)} ${owner.firstName} ${owner.lastName}`}</h4>
                     </button>
-                    <div className={styles.card__profile__info}>
-                        <button className={styles.profile__button} onClick={handleProfileClick}>
-                            <h4>{`${formatTitle(owner.title)} ${owner.firstName} ${owner.lastName}`}</h4>
+                    <small>{formatDate(publishDate)}</small>
+                </div>
+            </div>
+            <div className={styles.card__grid}>
+                <div className={styles.card__image}>
+                    <Link href={`/${id}`}>
+                        <Image
+                            src={image}
+                            alt={text}
+                            sizes="(max-width: 768px) 100vw,
+                                (max-width: 1200px) 50vw,
+                                33vw"
+                            fill
+                            priority
+                        />
+                    </Link>
+                    <div className={styles.card__heart}>
+                        <button onClick={handleButtonClick} className={styles.button}>
+                            <Heart filled={filled} />
                         </button>
-                        <small>{formatDate(publishDate)}</small>
                     </div>
                 </div>
-                <div className={styles.card__grid}>
-                    <div className={styles.card__image}>
-                        <Link href={`/${id}`}>
-                            <Image
-                                src={image}
-                                alt={text}
-                                sizes="(max-width: 768px) 100vw,
-                                    (max-width: 1200px) 50vw,
-                                    33vw"
-                                fill
-                                priority
-                            />
-                        </Link>
-                        <div className={styles.card__heart}>
-                            <button onClick={handleButtonClick} className={styles.button}>
-                                <Heart filled={filled} />
-                            </button>
-                        </div>
-                    </div>
-                    <div className={styles.description}>
-                        <p>{text}</p>
-                        <p className={styles.likes}>Likes: {filled ? likes + 1 : likes}</p>
-                        <div className={styles.tags}>
-                            {tags.map((tag: string) => {
-                                return (
-                                <Button
-                                key={tag}
-                                onClick={() => onButtonClick(tag)}
-                                tag
-                                >
-                                    {tag}
-                                </Button>)
-                            })}
-                        </div>
+                <div className={styles.description}>
+                    <p>{text}</p>
+                    <p className={styles.likes}>Likes: {filled ? likes + 1 : likes}</p>
+                    <div className={styles.tags}>
+                        {tags.map((tag: string) => {
+                            return (
+                            <Button
+                            key={tag}
+                            onClick={() => onButtonClick(tag)}
+                            tag
+                            >
+                                {tag}
+                            </Button>)
+                        })}
                     </div>
                 </div>
             </div>
+        </div>
         </>
     )
 }

@@ -1,12 +1,23 @@
+//style imports
 import styles from '@/styles/Create.module.css';
+
+//component imports
+import Layout from "@/components/layouts/Layout";
+import Button from '@/components/common/Button';
+
+//library imports
 import type { NextPage } from 'next';
 import { useState, useMemo } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import Select from 'react-select';
-import Layout from "@/components/layouts/Layout";
-import tags from "@/js/tags.json";
-import Button from '@/components/common/Button';
 import { v4 as uuidv4 } from 'uuid';
+
+//tags import,
+//as tags had over 2000 tags with null and empty string,
+//used Postman to download json file for easier debugging purposes
+import tags from "@/js/tags.json";
+
+//tags fetch displayed below
 
 // const filteredTags = tags.data.filter(Boolean);
 
@@ -30,6 +41,9 @@ interface Data {
     jsonDate: string
 }
 
+//create post function,
+//as owner field is required by Dummy API,
+//hard coded owner values are used
 const createPost = async (data: Data) => await (
   await fetch(`https://dummyapi.io/data/v1/post/create`, {
     method: 'POST',
@@ -55,12 +69,14 @@ const createPost = async (data: Data) => await (
   })
 ).json();
 
+// NOTE: POST function is not functional, will not POST
 const CreatePage: NextPage = () => {
   const [formImage, setFormImage] = useState("");
   const [formText, setFormText] = useState("");
   const [selectedTag, setSelectedTag] = useState<any>("");
   const [formTag, setFormTag] = useState<string[]>([]);
 
+  //tags are filtered to remove empty items then cached with useMemo
   const mappedTags = useMemo(() => {
     const filteredTags = tags.data.filter(Boolean);
 
@@ -69,10 +85,15 @@ const CreatePage: NextPage = () => {
     })
   }, []);
 
+  //random uuid is created
   const id = uuidv4();
+
+  //current date is created then translated to JSON format
   const date = new Date();
   const jsonDate = date.toJSON();
   
+  //mutationFn to use createPost function,
+  //onSuccess will run once it's successfull posted
   const mutation = useMutation({
     mutationFn: () => createPost({id: id, formImage: formImage, formText: formText, formTag: formTag, jsonDate: jsonDate}),
     onSuccess: () => {
@@ -86,15 +107,14 @@ const CreatePage: NextPage = () => {
     //fetch POST here
     mutation.mutate()
 
-    console.log(id);
-    console.log(mutation.data)
-
     setFormImage("");
     setFormText("");
     setFormTag([]);
     setSelectedTag("");
   }
 
+  //Select library only works when format is {value: value, label: value},
+  //currentTag will add the tags as a single value to our string[]
   const handleOnChange = (selectedTag: any) => {
     const currentTag = selectedTag.map((tag: any) => tag.value);
 
@@ -116,6 +136,9 @@ const CreatePage: NextPage = () => {
         </div>
         <div>
           <label htmlFor="tags">Tags:</label>
+          {/* options need to show all available tags,
+          with selected value being the selected tag,
+          Select can be quite slow with many tags */}
           <Select
             id="tags"
             className={styles.tags}
@@ -130,11 +153,6 @@ const CreatePage: NextPage = () => {
           <Button type="submit" >Submit post</Button>
         </div>
       </form>
-      {/* <div className={styles.note}>
-        <h4>Note:</h4>
-        <p>For testing purposes, the app will create a post as Benjamin Holland</p>
-      </div> */}
-      
     </Layout>
     
   )

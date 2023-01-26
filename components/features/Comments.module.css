@@ -50,6 +50,14 @@
 
 /* Mobile */
 @media (max-width: 700px) {
+    .title {
+        padding-top: 2rem;
+    }
+
+    .form {
+        margin-top: 1rem;
+    }
+
     .time__mo {
         display: block;
         font-size: 0.7rem;

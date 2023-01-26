@@ -1,14 +1,24 @@
+//style imports
 import styles from '@/styles/Edit.module.css';
+import loader from "@/styles/Loader.module.css";
+
+//component imports
+import Layout from "@/components/layouts/Layout";
+import Button from '@/components/common/Button';
+
+//library imports
 import type { NextPage } from 'next';
 import Link from 'next/link';
 import { useRouter } from "next/router";
 import { useState, useMemo, useEffect } from 'react';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import Select from 'react-select';
-import Layout from "@/components/layouts/Layout";
+
+//tags import,
+//as tags had over 2000 tags with null and empty string,
+//used Postman to download json file for easier debugging purposes
 import tags from "@/js/tags.json";
-import loader from "@/styles/Loader.module.css";
-import Button from '@/components/common/Button';
+
 
 interface IdData {
   id: string
@@ -27,14 +37,6 @@ interface IdData {
   text: string
 }
 
-interface Data {
-  id: string
-  formImage: string
-  formText: string
-  formTag: string[]
-  jsonDate: string
-}
-
 const getPostById = async (id: string) => await (
   await fetch(`https://dummyapi.io/data/v1/post/${id}`, {
       headers: {
@@ -43,6 +45,7 @@ const getPostById = async (id: string) => await (
   })
 ).json();
 
+//edit post function to PATCH data to the id
 const patchPost = async (id: string, formImage: string, formTag: string[], formText: string) => await (
   await fetch(`https://dummyapi.io/data/v1/post/${id}`, {
     method: 'PATCH',
@@ -56,8 +59,9 @@ const patchPost = async (id: string, formImage: string, formTag: string[], formT
       text: formText
     })
   })
-  ).json();
+).json();
 
+// NOTE: PATCH function is not functional, will not PATCH
 const EditPage: NextPage = () => {
   const router = useRouter();
   const {id} = router.query;
@@ -75,6 +79,7 @@ const EditPage: NextPage = () => {
   const [selectedTag, setSelectedTag] = useState<any>(null);
   const [formTag, setFormTag] = useState([]);
 
+  //tags are filtered to remove empty items then cached with useMemo
   const mappedTags = useMemo(() => {
     const filteredTags = tags.data.filter(Boolean);
 
@@ -83,14 +88,19 @@ const EditPage: NextPage = () => {
     })
   }, []);
 
+  //mutationFn to use patchPost function,
   const mutation = useMutation({
     mutationFn: () => patchPost(id as string, formImage, formTag, formText)
   })
 
+  //when data changes(fetched by id),
+  //sets inputs on form to data that needs to be edited,
+  //e.g original image / title of the post
   useEffect(() => {
     setFormImage(`${data?.image}`)
     setFormText(`${data?.text}`)
 
+    //function to map tags to format that Select library uses
     const fetchedTags = data?.tags.map(tag => {
       return {value: tag, label: tag}
     })
@@ -112,21 +122,20 @@ const EditPage: NextPage = () => {
     //fetch POST here
     mutation.mutate()
 
-    console.log(mutation.data)
-    console.log(id)
-
     setFormImage("");
     setFormText("");
     setFormTag([]);
     setSelectedTag("");
 
+    //when edit form is submitted, redirect to original post
     router.push(`/${id}`)
   }
 
+  //Select library only works when format is {value: value, label: value},
+  //currentTag will add the tags as a single value to our string[]
   const handleOnChange = (selectedTag: any) => {
     const currentTag = selectedTag.map((tag: any) => tag.value);
 
-    console.log(selectedTag);
     setFormTag(currentTag);
     setSelectedTag(selectedTag);
   }
@@ -151,6 +160,9 @@ const EditPage: NextPage = () => {
         </div>
         <div>
           <label htmlFor="tags">Tags:</label>
+          {/* options need to show all available tags,
+          with selected value being the selected tag,
+          Select can be quite slow with many tags */}
           <Select
             id="tags"
             className={styles.tags}

@@ -19,8 +19,24 @@
     padding: 1rem;
 }
 
+.footer ul {
+    display: flex;
+    justify-content: center;
+}
+
+.footer ul a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+
 @media (prefers-color-scheme: dark) {
     .footer {
         background-color: rgb(45, 45, 45);
+    }
+
+    .footer ul a > img {
+        filter: invert(1);
     }
 }

@@ -1,13 +1,21 @@
-import Image from "next/image";
-import Link from "next/link";
-import { useState } from "react";
-import { useRouter } from "next/router";
+//style imports
 import styles from './PostPage.module.css'
-import { formatDate, formatTitle } from '@/js/utils.js';
+
+//component imports
 import Profile from "./Profile";
 import Comments from "./Comments";
 import Button from "../common/Button";
 import Heart from "../misc/Heart";
+
+//utils import
+import { formatDate, formatTitle } from '@/js/utils.js';
+
+//library imports
+import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
+import { useRouter } from "next/router";
+
 
 interface postData {
     post: {
@@ -45,7 +53,9 @@ export default function PostPage({post}: postData) {
 
     return (
         <>
+        {/* if showProfile is true, shows Profile pop-up */}
         {showProfile && <Profile owner={owner} showProfile={showProfile} onProfileClick={handleProfileClick}/>}
+
         <div className={styles.card}>
             <div className={styles.card__flex}>
                 <button className={styles.profile__button} onClick={handleProfileClick}>
@@ -108,7 +118,6 @@ export default function PostPage({post}: postData) {
                         })}
                     </div>
                     <p>Likes: {filled ? likes + 1 : likes}</p>
-                    
                 </div>
             </div>
             <Comments id={id} />

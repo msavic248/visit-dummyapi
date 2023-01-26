@@ -1,10 +1,18 @@
+//style imports
+import styles from './Comments.module.css';
+import loader from '@/styles/Loader.module.css';
+
+//component imports
+import Button from '../common/Button';
+
+//utils import
+import { formatDate, formatTitle } from '@/js/utils.js';
+
+//library imports
 import { useQuery } from '@tanstack/react-query';
 import Image from "next/image";
-import { formatDate, formatTitle } from '@/js/utils.js';
-import loader from '@/styles/Loader.module.css';
-import styles from './Comments.module.css';
 import { useState } from 'react';
-import Button from '../common/Button';
+
 
 interface CommentData {
     data: {
@@ -39,16 +47,17 @@ function Comments({id}: any) {
     } = useQuery<CommentData>({
         queryKey: ["comment", id],
         queryFn: () => getCommentById(id as string)
-});
+    });
       
     if (isLoading) return <div className={loader.center}><div className={loader.lds__roller}><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>
 
     if(!data) return <span>No data!</span>
 
+    //No API connection to POST comment
     const handleFormSubmit = (event: any) => {
         event.preventDefault();
     
-        //fetch POST
+        //fetch POST, mutation
     
         setComment("");
     }

@@ -1,3 +1,4 @@
+//styles import
 import styles from './Heart.module.css';
 
 interface Props {

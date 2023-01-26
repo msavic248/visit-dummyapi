@@ -1,9 +1,15 @@
+//style imports
+import loader from "@/styles/Loader.module.css";
+
+//component imports
+import Layout from "@/components/layouts/Layout";
+import PostPage from "@/components/features/PostPage";
+
+//library imports
 import type { NextPage } from 'next';
 import { useRouter } from "next/router";
 import { useQuery } from '@tanstack/react-query';
-import Layout from "@/components/layouts/Layout";
-import PostPage from "@/components/features/PostPage";
-import loader from "@/styles/Loader.module.css";
+
 
 interface IdData {
     id: string

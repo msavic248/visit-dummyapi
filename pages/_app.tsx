@@ -1,8 +1,12 @@
+//styles import
 import '@/styles/globals.css'
+
+//library imports
 import type { AppProps } from 'next/app'
-import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { useRef } from 'react';
+import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query';
+// import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+
 
 function App({ Component, pageProps }: AppProps) {
   //To ensure data is not shared between uses and requests, useRef is used.
@@ -24,7 +28,9 @@ function App({ Component, pageProps }: AppProps) {
       <Hydrate state={pageProps.dehydratedState}>
         <Component {...pageProps} />
       </Hydrate>
-      <ReactQueryDevtools initialIsOpen={false} />
+      {/* React Query Dev tools,
+      will only show in production but commented out just in case */}
+      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
     </QueryClientProvider>
   )
 }

@@ -1,17 +1,24 @@
-import Head from 'next/head';
-import { ReactNode } from 'react';
+//style imports
 import { Inter } from '@next/font/google'
+
+//component imports
 import Nav from "../common/Nav";
 import Footer from "../common/Footer";
+
+//library imports
+import Head from 'next/head';
+import { ReactNode } from 'react';
+
 
 const inter = Inter({ subsets: ['latin'] })
 
 interface Props {
-    // any props that come into the component
     children?: ReactNode
     title?: string
 }
 
+//layout to add Head, Nav and Footer to each page,
+//takes in title prop with default as home, important to set title for accessibility
 const Layout = ({children, title="Home - Milos Savic"}: Props) => {
   return (
     <div className={inter.className}>
