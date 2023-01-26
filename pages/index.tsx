@@ -2,9 +2,9 @@ import styles from '@/styles/Home.module.css'
 import type { NextPage } from 'next';
 import { dehydrate, QueryClient, useQuery } from '@tanstack/react-query';
 import { useState, useEffect } from 'react';
-import Layout from '@/components/Layout';
-import PostList from '@/components/PostList';
-import Button from '@/components/Button';
+import Layout from '@/components/layouts/Layout';
+import PostList from '@/components/features/PostList';
+import Button from '@/components/common/Button';
 import loader from "@/styles/Loader.module.css";
 import { useRouter } from 'next/router'
 
@@ -28,7 +28,7 @@ interface PostsData {
 
 //First awaits for the data then awaits again when converted to JSON
 const getPostsData = async () => await (
-  await fetch(`https://dummyapi.io/data/v1/post?limit=20`, {
+  await fetch(`https://dummyapi.io/data/v1/post?limit=30`, {
     headers: {
       "app-id": "63cada995bc52b0fecc614e9",
     }
@@ -36,7 +36,7 @@ const getPostsData = async () => await (
 ).json();
 
 const getPostsbyTag = async (tag: string) => await (
-  await fetch(`https://dummyapi.io/data/v1/tag/${tag}/post?limit=20`, {
+  await fetch(`https://dummyapi.io/data/v1/tag/${tag}/post?limit=30`, {
     headers: {
       "app-id": "63cada995bc52b0fecc614e9",
     }

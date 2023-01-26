@@ -1,9 +1,9 @@
-import styles from '@/styles/Profile.module.css'
+import styles from './Profile.module.css'
 import loader from "@/styles/Loader.module.css";
 import Image from 'next/image';
-import { formatDate, formatTitle, getRandomInt } from '@/js/utils.js';
+import { formatTitle, getRandomInt } from '@/js/utils.js';
 import { useQuery } from '@tanstack/react-query';
-import Button from './Button';
+import Button from '../common/Button';
 import Link from 'next/link';
 
 interface ownerData {

@@ -1,4 +1,4 @@
-import styles from '@/styles/Heart.module.css';
+import styles from './Heart.module.css';
 
 interface Props {
     filled?: Boolean

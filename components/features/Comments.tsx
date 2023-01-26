@@ -2,9 +2,9 @@ import { useQuery } from '@tanstack/react-query';
 import Image from "next/image";
 import { formatDate, formatTitle } from '@/js/utils.js';
 import loader from '@/styles/Loader.module.css';
-import styles from '@/styles/Comments.module.css';
+import styles from './Comments.module.css';
 import { useState } from 'react';
-import Button from './Button';
+import Button from '../common/Button';
 
 interface CommentData {
     data: {

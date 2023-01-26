@@ -1,4 +1,4 @@
-import styles from '@/styles/Button.module.css';
+import styles from './Button.module.css';
 
 interface Props {
     children: React.ReactNode

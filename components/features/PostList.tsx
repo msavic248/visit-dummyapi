@@ -1,11 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from 'react';
-import { useQuery} from "@tanstack/react-query";
-import styles from '@/styles/PostList.module.css'
+import styles from './PostList.module.css'
 import { formatDate, formatTitle } from '@/js/utils.js';
-import Button from "./Button";
-import Heart from "./Heart";
+import Button from "../common/Button";
+import Heart from "../misc/Heart";
 import Profile from "./Profile";;
 
 interface postData {

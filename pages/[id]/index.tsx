@@ -1,8 +1,8 @@
 import type { NextPage } from 'next';
 import { useRouter } from "next/router";
 import { useQuery } from '@tanstack/react-query';
-import Layout from "@/components/Layout";
-import PostPage from "@/components/PostPage";
+import Layout from "@/components/layouts/Layout";
+import PostPage from "@/components/features/PostPage";
 import loader from "@/styles/Loader.module.css";
 
 interface IdData {

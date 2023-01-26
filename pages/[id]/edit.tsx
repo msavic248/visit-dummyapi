@@ -5,10 +5,10 @@ import { useRouter } from "next/router";
 import { useState, useMemo, useEffect } from 'react';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import Select from 'react-select';
-import Layout from "@/components/Layout";
+import Layout from "@/components/layouts/Layout";
 import tags from "@/js/tags.json";
 import loader from "@/styles/Loader.module.css";
-import Button from '@/components/Button';
+import Button from '@/components/common/Button';
 
 interface IdData {
   id: string

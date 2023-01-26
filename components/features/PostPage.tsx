@@ -2,12 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/router";
-import styles from '@/styles/PostPage.module.css'
+import styles from './PostPage.module.css'
 import { formatDate, formatTitle } from '@/js/utils.js';
 import Profile from "./Profile";
 import Comments from "./Comments";
-import Button from "./Button";
-import Heart from "./Heart";
+import Button from "../common/Button";
+import Heart from "../misc/Heart";
 
 interface postData {
     post: {
